@@ -1,0 +1,858 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Wikex Hàng Hóa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: một cột dọc theo hành trình 4 chặng; mỗi bước = chữ + ảnh chụp màn hình gốc (bấm để phóng to) */
+:root{
+  --bg:#f6f7f4; --surface:#ffffff; --ink:#14251f; --muted:#5b6b64; --line:#dde3de;
+  --brand:#0f5c4a; --brand-soft:#e3efe9; --grain:#c98a1b; --grain-soft:#fbf1dc; --warn:#a33a2b; --warn-soft:#f8e6e2; --scrim:rgba(8,14,12,.92);
+  --f-display:"Lexend",system-ui,sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1714; --surface:#15211d; --ink:#e7eee9; --muted:#9db0a7; --line:#26352f;
+  --brand:#5cc3a4; --brand-soft:#1b3129; --grain:#e6ad45; --grain-soft:#2e2614; --warn:#f08a77; --warn-soft:#3a1f1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1714; --surface:#15211d; --ink:#e7eee9; --muted:#9db0a7; --line:#26352f;
+  --brand:#5cc3a4; --brand-soft:#1b3129; --grain:#e6ad45; --grain-soft:#2e2614; --warn:#f08a77; --warn-soft:#3a1f1a; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:900px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--grain);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:20px 8px}
+.logo{font-family:var(--f-display);font-weight:700;font-size:20px;letter-spacing:.02em;color:var(--brand)}
+.logo span{color:var(--grain)}
+.top small{color:var(--muted);font-size:13px}
+
+.hero{padding-block:28px 12px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grain);font-weight:600}
+.hero h1{font-size:clamp(28px,6vw,44px);margin-top:8px;max-width:18ch}
+.hero p{color:var(--muted);max-width:62ch;margin:12px 0 0}
+
+.prep{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:28px}
+.prep div{padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.prep b{display:block;font-size:14px}
+.prep span{font-size:13px;color:var(--muted)}
+
+nav.journey{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;border-bottom:1px solid var(--line);margin-top:24px}
+.journey ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.journey a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--muted);font-size:13px;line-height:1.3;padding:8px 10px;border-radius:8px;border-top:3px solid var(--line)}
+.journey a b{font-family:var(--f-display);font-size:12px;color:var(--grain)}
+.journey a.on{color:var(--ink);border-top-color:var(--brand);background:var(--brand-soft)}
+@media (max-width:520px){.journey a{font-size:11.5px;padding:6px}}
+
+section.stage{padding-block:48px 8px;scroll-margin-top:90px}
+.stage-head{display:flex;gap:16px;align-items:baseline}
+.num{font-family:var(--f-display);font-weight:700;font-size:40px;color:var(--grain);line-height:1}
+.stage-head p{margin:4px 0 0;color:var(--muted)}
+.stage h2{font-size:clamp(22px,4vw,28px)}
+
+.tabs{display:inline-flex;gap:4px;padding:4px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin-top:20px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 74px);z-index:4}
+.tabs button{font:inherit;font-size:14px;font-weight:600;border:0;background:transparent;color:var(--muted);padding:8px 14px;border-radius:7px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--brand);color:var(--surface)}
+.tabmeta{font-size:13px;color:var(--muted);margin:10px 0 0}
+
+ol.steps{list-style:none;margin:24px 0 0;padding:0;counter-reset:s}
+ol.steps>li{counter-increment:s;position:relative;padding:0 0 32px 48px;min-width:0}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-display);font-weight:600;font-size:14px;background:var(--brand-soft);color:var(--brand);border:1px solid var(--brand)}
+ol.steps>li:not(:last-child)::after{content:"";position:absolute;left:15.5px;top:34px;bottom:4px;width:1px;background:var(--line)}
+ol.steps h3{font-size:17px;font-weight:600;padding-top:4px}
+ol.steps p{margin:4px 0 0;color:var(--muted);font-size:15px}
+ol.steps ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:15px}
+/* Chú thích số trùng với số khoanh đỏ trong ảnh */
+ol.marks{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;font-size:15px;color:var(--muted)}
+ol.marks li{display:flex;gap:6px;align-items:flex-start}
+ol.marks i{flex:none;margin-top:2px;font-style:normal;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--warn);color:var(--warn);font-size:11px;font-weight:700;display:grid;place-items:center;font-family:var(--f-display)}
+@media (max-width:520px){ol.steps>li{padding-left:0;padding-top:44px}ol.steps>li:not(:last-child)::after{display:none}ol.steps>li::before{top:0}ol.steps h3{padding-top:0}}
+
+figure.shot{margin:14px 0 0}
+figure.shot button{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in;position:relative}
+figure.shot img{display:block;width:100%;height:auto;aspect-ratio:16/8.3;object-fit:contain}
+figure.shot.tall img{aspect-ratio:auto}
+figure.shot button span{position:absolute;right:8px;bottom:8px;font-size:12px;font-weight:600;padding:4px 9px;border-radius:6px;background:var(--scrim);color:#fff}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+
+.note{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:15px;border:1px solid var(--line);background:var(--surface)}
+.note.warn{background:var(--warn-soft);border-color:transparent}
+.note.warn strong{color:var(--warn)}
+.note ul{margin:6px 0 0;padding-left:18px}
+
+.offer{margin-top:20px;padding:20px;border-radius:12px;background:var(--grain-soft);display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.offer .big{font-family:var(--f-display);font-weight:700;font-size:34px;color:var(--grain);line-height:1}
+.offer .big small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:6px}
+.offer p{margin:0;font-size:15px}
+@media (max-width:520px){.offer{grid-template-columns:1fr}}
+table.fee{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+.fee td{padding:6px 0;border-bottom:1px solid var(--line)}
+.fee td:last-child{text-align:right}
+
+.pay{margin-top:20px;display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start}
+@media (max-width:640px){.pay{grid-template-columns:1fr}}
+.qr{border-radius:12px;overflow:hidden;border:1px solid var(--line);max-width:260px}
+.qr img{display:block;width:100%}
+.bank{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.bank dl{margin:0;display:grid;grid-template-columns:max-content 1fr}
+.bank dt,.bank dd{margin:0;padding:12px 16px;border-bottom:1px solid var(--line);font-size:15px}
+.bank dt{color:var(--muted)}
+.bank dd{display:flex;justify-content:space-between;gap:10px;align-items:center;min-width:0;font-weight:500;flex-wrap:wrap}
+@media (max-width:480px){.bank dl{grid-template-columns:1fr}.bank dt{border-bottom:0;padding-bottom:0;font-size:13px}}
+.copy{font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--brand);padding:4px 10px;border-radius:6px;cursor:pointer;white-space:nowrap}
+.builder{padding:16px;background:var(--brand-soft)}
+.builder label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+.builder .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.builder .row{grid-template-columns:1fr}}
+.builder input{width:100%;font:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.out{margin-top:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 12px;border-radius:8px;background:var(--surface);border:1px dashed var(--brand)}
+.out code{font-family:var(--f-mono);font-size:14px;word-break:break-all;min-width:0}
+
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 18px;border-radius:10px;background:var(--brand);color:var(--surface);text-decoration:none;font-weight:600}
+h3.sub{margin-top:36px;font-size:19px}
+
+details{border-bottom:1px solid var(--line);padding-block:14px}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 0;color:var(--muted)}
+
+footer{margin-top:48px;padding-block:28px 40px;border-top:1px solid var(--line)}
+.contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:14px}
+.contacts div{min-width:0}
+.contacts small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.contacts b{font-weight:600;word-break:break-word}
+footer .fine{color:var(--muted);font-size:13px;margin-top:24px}
+
+/* Site header + new sections */
+header.top{flex-wrap:wrap}
+.sitenav{display:flex;gap:4px 16px;flex-wrap:wrap;align-items:center;font-size:14px}
+.sitenav a{color:var(--ink);text-decoration:none;font-weight:500}
+.sitenav a:hover{color:var(--brand)}
+.sitenav a.btn{background:var(--brand);color:var(--surface);padding:7px 14px;border-radius:8px;font-weight:600}
+@media (max-width:640px){.sitenav a:not(.btn){display:none}}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:32px;align-items:center}
+@media (max-width:760px){.hero-grid{grid-template-columns:1fr}}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:13px;font-weight:600}
+.badge b{font-family:var(--f-mono);background:var(--brand);color:var(--surface);padding:3px 9px;border-radius:999px;font-size:12px}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.ctas a{margin-top:0}
+.cta.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.cert{display:block;width:100%;max-width:340px;justify-self:center;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in;box-shadow:0 18px 40px -24px rgba(15,92,74,.5);position:relative}
+.cert img{display:block;width:100%}
+.cert span{position:absolute;right:8px;bottom:8px;font-size:12px;font-weight:600;padding:4px 9px;border-radius:6px;background:var(--scrim);color:#fff}
+.sec{padding-block:56px 8px;scroll-margin-top:20px}
+.sec>h2{font-size:clamp(24px,4.5vw,32px)}
+.lead{color:var(--muted);max-width:62ch;margin:8px 0 0}
+.legal{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media (max-width:760px){.legal{grid-template-columns:1fr}}
+.legal dl{margin:0;border-top:1px solid var(--line)}
+.legal dl div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.legal dt{color:var(--muted)} .legal dd{margin:0;font-weight:500;min-width:0}
+@media (max-width:480px){.legal dl div{grid-template-columns:1fr;gap:0}}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+@media (max-width:640px){.pillars{grid-template-columns:1fr}}
+.pillars div{padding:14px 16px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.pillars b{font-family:var(--f-display);font-size:15px;display:block}
+.pillars span{font-size:14px;color:var(--muted)}
+.svc{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:24px;border-top:1px solid var(--line)}
+@media (max-width:640px){.svc{grid-template-columns:1fr}}
+.svc article{padding:20px 20px 20px 0;border-bottom:1px solid var(--line);min-width:0}
+.svc article:nth-child(odd){padding-right:28px}
+@media (min-width:641px){.svc article:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}}
+.svc h3{font-size:18px}
+.svc p{margin:6px 0 0;color:var(--muted);font-size:15px}
+.svc .who{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grain)}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;padding:0;list-style:none}
+@media (max-width:640px){.feat{grid-template-columns:1fr 1fr}}
+.feat li{font-size:14px;padding:10px 12px;border-radius:8px;background:var(--brand-soft);color:var(--ink)}
+.ladder{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:8px}
+.ladder li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 16px;border-radius:10px;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--lv);min-width:0}
+.ladder li b{font-family:var(--f-display);font-size:15px}
+.ladder li span{color:var(--muted);font-size:15px}
+@media (max-width:520px){.ladder li{grid-template-columns:1fr;gap:4px}}
+.shifts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+@media (max-width:640px){.shifts{grid-template-columns:1fr}}
+.shifts div{padding:14px 16px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.shifts .mono{font-size:14px;color:var(--brand)}
+.shifts b{display:block;font-family:var(--f-display);margin-top:2px}
+.shifts span{font-size:14px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 240px;gap:28px;align-items:start}
+@media (max-width:700px){.two{grid-template-columns:1fr}}
+.phone{max-width:240px;justify-self:center;width:100%}
+.topics{columns:2;column-gap:28px;margin:12px 0 0;padding-left:18px;color:var(--muted);font-size:15px}
+@media (max-width:560px){.topics{columns:1}}
+.cities{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cities span{font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.guide-intro{padding-block:56px 0}
+
+.subacc{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+@media (max-width:640px){.subacc{grid-template-columns:1fr}}
+.subacc>div{padding:16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.subacc .mono{font-size:14px;color:var(--muted)} .subacc .mono b{color:var(--grain)}
+.subacc h3{font-size:17px;margin-top:4px} .subacc p{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.traits{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:20px;border-top:1px solid var(--line)}
+@media (max-width:640px){.traits{grid-template-columns:1fr 1fr}}
+.traits div{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);min-width:0}
+.traits b{display:block;font-family:var(--f-display);font-size:15px} .traits span{font-size:14px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;align-items:center}
+.filters button{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:6px 12px;border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface)}
+.filters input{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);flex:1;min-width:150px}
+.tablewrap{overflow-x:auto;margin-top:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table.prod,table.tp,table.months{width:100%;border-collapse:collapse;font-size:14px}
+.prod th,.prod td,.tp th,.tp td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+.prod th,.tp th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--bg);position:sticky;top:0}
+.prod td.r,.prod th.r{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.prod td small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:12px}
+.prod tr.nano td:first-child{box-shadow:inset 3px 0 0 var(--grain)}
+.prod .na{color:var(--muted)}
+.prod tbody tr{cursor:pointer} .prod tbody tr:hover{background:var(--brand-soft)}
+.months th,.months td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--line);font-family:var(--f-mono)}
+.months th{font-family:var(--f-body);text-align:left;color:var(--muted);font-weight:600;font-size:13px}
+.months tr:last-child td{color:var(--grain);font-weight:700}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;padding:18px;border-radius:12px;background:var(--brand-soft)}
+@media (max-width:640px){.calc{grid-template-columns:1fr}}
+.calc label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+.calc input,.calc select{width:100%;font:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.calc-in{display:grid;gap:10px;min-width:0}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.calc-out{padding:16px;border-radius:10px;background:var(--surface);min-width:0}
+.calc-out small{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.pnl{font-size:28px;font-weight:600;line-height:1.2;margin-top:4px;word-break:break-word}
+.pnl.up{color:var(--brand)} .pnl.down{color:var(--warn)}
+.calc-out dl{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.calc-out dt{color:var(--muted)} .calc-out dd{margin:0;text-align:right;font-family:var(--f-mono)}
+.code-demo{display:flex;gap:6px;margin-top:12px}
+.code-demo span{font-size:28px;font-weight:600;padding:6px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--line)}
+.code-demo span:nth-child(2){color:var(--grain)} .code-demo span:nth-child(3){color:var(--brand)}
+.orders{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+@media (max-width:640px){.orders{grid-template-columns:1fr}}
+.orders article{padding:16px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.orders .mono{font-size:13px;color:var(--grain);font-weight:600} .orders h4{font-family:var(--f-display);font-size:16px;margin:2px 0 0}
+.orders p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.tif{margin:12px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media (max-width:640px){.tif{grid-template-columns:1fr}}
+.tif div{display:grid;grid-template-columns:56px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.tif dt{color:var(--brand);font-weight:600} .tif dd{margin:0;color:var(--muted)}
+
+/* Lightbox */
+#lb{position:fixed;inset:0;z-index:50;background:var(--scrim);display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(8px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 8px) max(8px,env(safe-area-inset-left,0px))}
+#lb[hidden]{display:none}
+#lb .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#fff;font-size:14px;padding:4px 4px 8px}
+#lb .bar button{font:inherit;font-weight:600;font-size:14px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer}
+#lb .view{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;min-height:0}
+#lb img{max-width:100%;max-height:100%;background:#fff;border-radius:6px;cursor:zoom-in}
+#lb.zoom .view{display:block}
+#lb.zoom img{max-width:none;max-height:none;width:200%;cursor:zoom-out}
+@media (min-width:1000px){#lb.zoom img{width:1600px}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="logo">WIKEX<span>.</span></div>
+  <nav class="sitenav" aria-label="Điều hướng">
+    <a href="#ve-wikex">Về Wikex</a><a href="#dich-vu">Dịch vụ</a><a href="#huong-dan">Hướng dẫn</a><a href="#kien-thuc">Kiến thức</a><a href="#rui-ro">Quản trị rủi ro</a><a href="#ho-tro">Hỗ trợ</a>
+    <a class="btn" href="https://trade.wikex.vn/" target="_blank" rel="noopener">Mở tài khoản</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="badge"><b>090-KD</b>Thành viên Kinh doanh của Sở Giao dịch Hàng hóa Việt Nam</span>
+      <h1 style="max-width:20ch;margin-top:18px">Giao dịch hàng hóa phái sinh minh bạch, trên nền tảng tự phát triển</h1>
+      <p>Wikex kết nối nhà đầu tư cá nhân và doanh nghiệp với các sản phẩm nông sản, kim loại, năng lượng niêm yết qua MXV. Mở tài khoản trực tuyến trong khoảng 10 phút.</p>
+      <div class="ctas">
+        <a class="cta" href="https://trade.wikex.vn/" target="_blank" rel="noopener">Mở tài khoản giao dịch</a>
+        <a class="cta ghost" href="#huong-dan">Xem hướng dẫn từng bước</a>
+      </div>
+    </div>
+    <button class="cert" data-full="img/chung-nhan-mxv.jpg" data-cap="Giấy chứng nhận Thành viên Kinh doanh MXV"><img src="img/chung-nhan-mxv.jpg" alt="Giấy chứng nhận Wikex là Thành viên Kinh doanh của Sở Giao dịch Hàng hóa Việt Nam, mã 090-KD"><span>Phóng to</span></button>
+  </div>
+</section>
+
+<section class="sec" id="ve-wikex">
+  <div class="eyebrow">Về Wikex</div>
+  <h2 style="margin-top:6px">Công ty Cổ phần Giao dịch Hàng hóa Wikex</h2>
+  <p class="lead">Wikex hoạt động theo quy định của pháp luật Việt Nam, của MXV và các sở giao dịch liên thông. Thông tin pháp lý dưới đây có thể đối chiếu trên Cổng thông tin quốc gia về đăng ký doanh nghiệp và danh sách thành viên của MXV.</p>
+  <div class="legal">
+    <dl>
+      <div><dt>Tên tiếng Anh</dt><dd>Wikex Commodity Trading JSC</dd></div>
+      <div><dt>Mã số doanh nghiệp</dt><dd class="mono">0319672126</dd></div>
+      <div><dt>Thành viên MXV</dt><dd>Thành viên Kinh doanh, mã <span class="mono">090-KD</span>, chứng nhận ngày 09/10/2026</dd></div>
+      <div><dt>Vốn điều lệ</dt><dd class="mono">75.000.000.000 đ</dd></div>
+      <div><dt>Trụ sở</dt><dd>36 Mạc Đỉnh Chi, Phường Tân Định, TP. Hồ Chí Minh</dd></div>
+      <div><dt>Đại diện pháp luật</dt><dd>Ông Phan Duy Vũ, Giám đốc</dd></div>
+    </dl>
+    <figure class="shot tall" style="margin:0"><button data-full="img/van-phong.jpg" data-cap="Văn phòng và đội ngũ Wikex"><img src="img/van-phong.jpg" alt="Trụ sở, văn phòng và đội ngũ Wikex" loading="lazy"><span>Phóng to</span></button></figure>
+  </div>
+  <div class="pillars">
+    <div><b>Đội ngũ chuẩn MXV</b><span>Hơn 15 môi giới đã có chứng chỉ hành nghề do MXV cấp</span></div>
+    <div><b>Công nghệ tự chủ</b><span>Web, app, quản trị và quản lý rủi ro do Wikex tự phát triển, vận hành</span></div>
+    <div><b>Giám sát 24/7</b><span>Bộ phận quản trị rủi ro trực 3 ca, theo dõi thị trường Á, Âu, Mỹ</span></div>
+  </div>
+</section>
+
+<section class="sec" id="dich-vu">
+  <div class="eyebrow">Dịch vụ</div>
+  <h2 style="margin-top:6px">Sản phẩm và dịch vụ theo quy định của MXV</h2>
+  <div class="svc">
+    <article><span class="who">Nhà đầu tư cá nhân</span><h3>Tài khoản giao dịch hàng hóa</h3><p>Mở tài khoản trực tuyến bằng eKYC, ký hợp đồng điện tử, giao dịch trên app Wikex và nền tảng CQG.</p></article>
+    <article><span class="who">Doanh nghiệp</span><h3>Bảo hiểm giá</h3><p>Dành cho doanh nghiệp sản xuất, kinh doanh cần phòng ngừa biến động giá nguyên vật liệu.</p></article>
+    <article><span class="who">Mọi khách hàng</span><h3>Báo cáo và phân tích chuyên sâu</h3><p>Cập nhật tin tức, phân tích tác động thị trường và mặt hàng tiêu điểm.</p></article>
+    <article><span class="who">Mọi khách hàng</span><h3>Tư vấn và đồng hành</h3><p>Môi giới tư vấn 1:1, hỗ trợ giao dịch và chăm sóc tài khoản trong suốt quá trình đầu tư.</p></article>
+  </div>
+
+  <h3 class="sub">Nền tảng giao dịch Wikex</h3>
+  <p class="lead">Bảng giá, biểu đồ, đặt lệnh, theo dõi vị thế và tài sản trên một màn hình. Có cả bản web (trade.wikex.vn) và app di động.</p>
+  <figure class="shot tall"><button data-full="img/nen-tang-gd.jpg" data-cap="Nền tảng giao dịch Wikex"><img src="img/nen-tang-gd.jpg" alt="Giao diện nền tảng giao dịch hàng hóa Wikex" loading="lazy"><span>Phóng to</span></button></figure>
+
+  <h3 class="sub">WIKI, trợ lý AI trên ứng dụng Wikex</h3>
+  <p class="lead">Hỗ trợ tiếp cận, phân tích và theo dõi thị trường hàng hóa ngay trong app.</p>
+  <ul class="feat">
+    <li>Hỏi đáp kiến thức tài chính</li><li>Tổng hợp, tóm tắt tin tức</li><li>Phân tích tác động thị trường</li>
+    <li>Đánh giá tâm lý thị trường</li><li>Cá nhân hóa thông tin</li><li>Cảnh báo biến động và rủi ro</li>
+  </ul>
+  <figure class="shot tall"><button data-full="img/wiki-ai.jpg" data-cap="Trợ lý AI WIKI"><img src="img/wiki-ai.jpg" alt="Trợ lý AI WIKI tích hợp trên nền tảng Wikex" loading="lazy"><span>Phóng to</span></button></figure>
+</section>
+
+<div id="huong-dan">
+<section class="guide-intro">
+  <div class="eyebrow">Hướng dẫn tham gia</div>
+  <h2 style="margin-top:6px;font-size:clamp(24px,4.5vw,32px)">Từ đăng ký đến lệnh giao dịch đầu tiên</h2>
+  <p class="lead">Bốn chặng, làm hoàn toàn trực tuyến. Số khoanh đỏ trong ảnh trùng với số trong phần chú thích. Bấm vào ảnh để phóng to.</p>
+  <div class="prep" aria-label="Cần chuẩn bị">
+    <div><b>CCCD gắn chip</b><span>Ảnh 2 mặt, chụp ngang, rõ nét, không chỉnh sửa bằng AI</span></div>
+    <div><b>Email đang dùng</b><span>Nhận OTP, mật khẩu, mã PIN và tài khoản CQG</span></div>
+    <div><b>Tài khoản ngân hàng chính chủ</b><span>Trùng tên với tài khoản giao dịch</span></div>
+    <div><b>Mã môi giới</b><span>Nếu có người giới thiệu (không bắt buộc)</span></div>
+  </div>
+</section>
+
+<nav class="journey" aria-label="Hành trình">
+  <ol>
+    <li><a href="#mo-tai-khoan" class="on"><b>01</b><span>Mở tài khoản & ký hợp đồng</span></a></li>
+    <li><a href="#nap-ky-quy"><b>02</b><span>Nạp & rút tiền</span></a></li>
+    <li><a href="#cqg"><b>03</b><span>Kích hoạt CQG</span></a></li>
+    <li><a href="#giao-dich"><b>04</b><span>Giao dịch</span></a></li>
+  </ol>
+</nav>
+
+<!-- 01 -->
+<section class="stage" id="mo-tai-khoan">
+  <div class="stage-head"><div class="num">01</div><div><h2>Mở tài khoản giao dịch & ký hợp đồng điện tử</h2><p>Chọn một trong hai cách. App xác minh khuôn mặt tự động nên nhanh hơn.</p></div></div>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-app" aria-selected="true" aria-controls="p-app">Trên App · 7 bước</button>
+    <button role="tab" id="tab-web" aria-selected="false" aria-controls="p-web">Trên Website · 10 bước</button>
+  </div>
+
+  <!-- APP -->
+  <div id="p-app" role="tabpanel" aria-labelledby="tab-app">
+    <ol class="steps">
+      <li><h3>Tải app và chọn “Mở tài khoản”</h3>
+        <ol class="marks">
+          <li><i>1</i>Tải app “Wikex – Hàng hóa phái sinh” trên CH Play (Android) hoặc App Store (iOS)</li>
+          <li><i>2</i>Mở app, vào giao diện đăng nhập</li>
+          <li><i>3</i>Chọn <b>Mở tài khoản</b></li>
+          <li><i>4</i>Nhập mã người giới thiệu (nếu có), tích đồng ý chính sách bảo mật, chọn <b>Bắt đầu</b></li>
+        </ol>
+        <figure class="shot"><button data-full="img/app-1.jpg" data-cap="App · Bước 1"><img src="img/app-1.jpg" alt="Tải app và mở tài khoản" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Chụp CCCD để xác thực eKYC</h3>
+        <ol class="marks">
+          <li><i>1</i>Bấm vào ô ảnh để bắt đầu</li>
+          <li><i>2</i>Đọc hướng dẫn, chọn <b>Chụp mặt trước</b></li>
+          <li><i>3</i><i>4</i>Chụp mặt trước, kiểm tra rồi chọn <b>Chụp mặt sau</b></li>
+          <li><i>5</i><i>6</i>Chụp mặt sau, kiểm tra rồi chọn <b>Tiếp theo</b></li>
+        </ol>
+        <figure class="shot"><button data-full="img/app-2.jpg" data-cap="App · Bước 2"><img src="img/app-2.jpg" alt="Chụp CCCD eKYC" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Quét khuôn mặt</h3>
+        <ol class="marks">
+          <li><i>1</i>Chọn <b>TÔI ĐÃ HIỂU</b> để bắt đầu</li>
+          <li><i>2</i>Đưa khuôn mặt ra xa cho vừa khung hình</li>
+          <li><i>3</i>Đưa khuôn mặt lại gần cho vừa khung hình</li>
+          <li><i>4</i>Kiểm tra lại ảnh và chuyển sang bước tiếp theo</li>
+        </ol>
+        <figure class="shot"><button data-full="img/app-3.jpg" data-cap="App · Bước 3"><img src="img/app-3.jpg" alt="Quét khuôn mặt" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Bổ sung thông tin, ký mẫu và xác nhận OTP</h3>
+        <ol class="marks">
+          <li><i>1</i>Thông tin cá nhân tự điền. Kéo xuống điền địa chỉ liên hệ và số tài khoản ngân hàng chính chủ</li>
+          <li><i>2</i><i>3</i>Tích đồng ý điều khoản, ký chữ ký mẫu, bấm <b>Gửi thông tin</b></li>
+          <li><i>4</i>Nhập OTP gửi qua email để hoàn tất tạo tài khoản</li>
+        </ol>
+        <figure class="shot"><button data-full="img/app-4.jpg" data-cap="App · Bước 4"><img src="img/app-4.jpg" alt="Điền thông tin và OTP" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Nhận thông tin tài khoản qua email</h3>
+        <ul><li><b>Tên đăng nhập</b>: số tài khoản giao dịch</li><li><b>Mật khẩu</b>: dùng để đăng nhập app</li><li><b>Mã PIN</b>: mã bảo mật khi đặt lệnh</li></ul>
+        <figure class="shot"><button data-full="img/app-5.jpg" data-cap="App · Bước 5"><img src="img/app-5.jpg" alt="Email thông tin tài khoản" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Đăng nhập lần đầu, đổi mật khẩu và mã PIN</h3>
+        <ol class="marks">
+          <li><i>1</i>Đăng nhập bằng tài khoản và mật khẩu trong email</li>
+          <li><i>2</i>Chọn <b>Đổi mật khẩu & mã PIN</b></li>
+          <li><i>3</i>Nhập mật khẩu và mã PIN mới</li>
+          <li><i>4</i>Xác nhận bằng OTP gửi về email, rồi đăng nhập lại</li>
+        </ol>
+        <figure class="shot"><button data-full="img/app-6.jpg" data-cap="App · Bước 6"><img src="img/app-6.jpg" alt="Đổi mật khẩu và PIN" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Ký hợp đồng điện tử (eContract)</h3>
+        <ol class="marks">
+          <li><i>1</i>Đăng nhập bằng mật khẩu mới</li>
+          <li><i>2</i>Chọn <b>Tiếp tục</b> để ký hợp đồng</li>
+          <li><i>3</i>Vuốt xem hết hợp đồng, bấm <b>Ký hợp đồng</b></li>
+          <li><i>4</i>Ký chữ ký</li>
+          <li><i>5</i>Xác nhận bằng OTP gửi về email. Hoàn tất, sẵn sàng giao dịch</li>
+        </ol>
+        <figure class="shot"><button data-full="img/app-7.jpg" data-cap="App · Bước 7"><img src="img/app-7.jpg" alt="Ký eContract" loading="lazy"><span>Phóng to</span></button></figure></li>
+    </ol>
+  </div>
+
+  <!-- WEB -->
+  <div id="p-web" role="tabpanel" aria-labelledby="tab-web" hidden>
+    <ol class="steps">
+      <li><h3>Vào wikex.vn, bấm Đăng nhập</h3><p>Nút ở góc phải trên cùng trang chủ.</p>
+        <figure class="shot"><button data-full="img/web-1.jpg" data-cap="Website · Bước 1"><img src="img/web-1.jpg" alt="Trang chủ wikex.vn" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Chọn “Mở tài khoản”</h3><p>Hệ thống chuyển sang trade.wikex.vn. Chọn <b>Mở tài khoản</b> bên dưới nút Đăng nhập.</p>
+        <figure class="shot"><button data-full="img/web-2.jpg" data-cap="Website · Bước 2"><img src="img/web-2.jpg" alt="Trang đăng nhập trade.wikex.vn" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Nhập mã môi giới và chọn loại tài khoản</h3>
+        <ol class="marks">
+          <li><i>1</i>Nhập mã môi giới (người giới thiệu) nếu có</li>
+          <li><i>2</i>Chọn loại tài khoản: Cá nhân hoặc Tổ chức</li>
+          <li><i>3</i>Tích đồng ý chính sách bảo mật & điều khoản</li>
+          <li><i>4</i>Bấm <b>Tiếp theo</b></li>
+        </ol>
+        <figure class="shot"><button data-full="img/web-3.jpg" data-cap="Website · Bước 3"><img src="img/web-3.jpg" alt="Chọn loại tài khoản" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Tải ảnh CCCD và ảnh chân dung</h3>
+        <ol class="marks">
+          <li><i>1</i><i>2</i>Ảnh CCCD mặt trước và mặt sau</li>
+          <li><i>3</i>Ảnh chân dung</li>
+          <li><i>4</i>Bấm <b>Tiếp theo</b></li>
+        </ol>
+        <p>Ảnh chụp ngang, rõ nét, không dùng AI chỉnh sửa.</p>
+        <figure class="shot"><button data-full="img/web-4.jpg" data-cap="Website · Bước 4"><img src="img/web-4.jpg" alt="Tải ảnh CCCD" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Điền thông tin xác minh</h3>
+        <ol class="marks">
+          <li><i>1</i>Thông tin đúng theo giấy tờ tùy thân, họ tên có dấu</li>
+          <li><i>2</i>Thông tin liên hệ và địa chỉ hiện tại</li>
+          <li><i>3</i>Tài khoản ngân hàng chính chủ, trùng tên TKGD</li>
+          <li><i>4</i>Bấm <b>Tiếp theo</b></li>
+        </ol>
+        <figure class="shot"><button data-full="img/web-5.jpg" data-cap="Website · Bước 5"><img src="img/web-5.jpg" alt="Điền thông tin xác minh" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Ký mẫu và gửi hồ sơ</h3>
+        <ol class="marks">
+          <li><i>1</i>Tích đồng ý chính sách bảo mật & điều khoản</li>
+          <li><i>2</i>Vẽ chữ ký mẫu tại ô <b>Ký tại đây</b></li>
+          <li><i>3</i>Bấm <b>Gửi thông tin</b></li>
+        </ol>
+        <figure class="shot"><button data-full="img/web-6.jpg" data-cap="Website · Bước 6"><img src="img/web-6.jpg" alt="Ký mẫu" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Nhập OTP từ email</h3>
+        <ol class="marks">
+          <li><i>1</i>Nhập mã OTP gửi qua email đã đăng ký</li>
+          <li><i>2</i>Bấm <b>Xác nhận</b> và chờ kết quả</li>
+          <li><i>3</i>Khi báo thành công, bấm <b>Trải nghiệm ngay</b></li>
+        </ol>
+        <figure class="shot"><button data-full="img/web-7.jpg" data-cap="Website · Bước 7"><img src="img/web-7.jpg" alt="Nhập OTP" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Đăng nhập bằng thông tin trong email</h3><p>Email gồm tên đăng nhập (số TKGD), mật khẩu và mã PIN.</p>
+        <figure class="shot"><button data-full="img/web-8.jpg" data-cap="Website · Bước 8"><img src="img/web-8.jpg" alt="Đăng nhập lần đầu" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Đổi mật khẩu và mã PIN</h3><p>Lần đăng nhập đầu tiên bắt buộc đổi cả hai, xác nhận bằng OTP mới gửi về email.</p>
+        <figure class="shot"><button data-full="img/web-9.jpg" data-cap="Website · Bước 9"><img src="img/web-9.jpg" alt="Đổi mật khẩu và PIN" loading="lazy"><span>Phóng to</span></button></figure></li>
+      <li><h3>Đăng nhập lại và ký số hợp đồng</h3><p>Ký hợp đồng, xác nhận OTP. Sau đó phòng quản lý ký quỹ duyệt và kích hoạt tiểu khoản giao dịch.</p>
+        <figure class="shot"><button data-full="img/web-10.jpg" data-cap="Website · Bước 10"><img src="img/web-10.jpg" alt="Ký số hợp đồng" loading="lazy"><span>Phóng to</span></button></figure></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="stage" id="nap-ky-quy">
+  <div class="stage-head"><div class="num">02</div><div><h2>Nạp và rút tiền</h2><p>Nạp đúng tiểu khoản theo nền tảng bạn muốn giao dịch.</p></div></div>
+
+  <div class="subacc">
+    <div><span class="mono">090C1234567<b>-A</b></span><h3>Tiểu khoản ACM</h3><p>Giao dịch trực tiếp trên app và website Wikex. Hiện có 3 sản phẩm: <b>Bạc Nano, Đồng Nano, Bạch kim Nano</b>.</p></div>
+    <div><span class="mono">090C1234567</span><h3>Tiểu khoản Future</h3><p>Giao dịch trên phần mềm <b>CQG</b> với các sản phẩm nông sản, kim loại, nguyên liệu công nghiệp, năng lượng.</p></div>
+  </div>
+  <p class="tabmeta">Tiền nộp vào tiểu khoản nào thì chỉ dùng để ký quỹ cho tiểu khoản đó.</p>
+
+  <div class="offer">
+    <div class="big mono">430.000đ<small>miễn phí mỗi tháng</small></div>
+    <div><p>Nạp ký quỹ <b>từ 5.000.000đ</b> vào tiểu khoản Future để được miễn phí User CQG và gói Data CME cơ bản (giá và biểu đồ nông sản, kim loại tại CBOT, NYMEX, COMEX).</p>
+      <table class="fee"><tr><td>User CQG</td><td class="mono">240.000đ</td></tr><tr><td>Gói Data CME Group</td><td class="mono">190.000đ</td></tr></table></div>
+  </div>
+
+  <h3 class="sub">Nạp tiền</h3>
+  <ol class="steps">
+    <li><h3>Mở chức năng nạp tiền và chọn tiểu khoản</h3>
+      <ol class="marks">
+        <li><i>1</i>Website trade.wikex.vn: vào mục nạp tiền, chọn tiểu khoản (ACM hoặc Future)</li>
+        <li><i>2</i>Nhập số tiền, bấm <b>Tạo QR</b> và quét bằng app ngân hàng</li>
+      </ol>
+      <p>Trên app Wikex: bấm <b>Nạp tiền</b> ở màn hình chính, chọn tiểu khoản và tạo mã QR tương tự (các ô 1 đến 4 bên phải ảnh).</p>
+      <figure class="shot"><button data-full="img/cqg-1.jpg" data-cap="Nạp tiền ký quỹ"><img src="img/cqg-1.jpg" alt="Nạp tiền ký quỹ trên website và app" loading="lazy"><span>Phóng to</span></button></figure></li>
+  </ol>
+
+  <h3 class="sub">Rút tiền</h3>
+  <div class="two" style="margin-top:8px">
+    <ol class="steps" style="margin-top:12px">
+      <li><h3>Gửi lệnh rút tiền</h3><p>Trên app hoặc website, chọn <b>Rút tiền</b>, chọn tiểu khoản, tài khoản ngân hàng nhận tiền (chính chủ) và nhập số tiền.</p></li>
+      <li><h3>Hệ thống duyệt lệnh</h3><p>Thông tin khớp: lệnh được duyệt tự động, <b>tối đa 20 phút</b>. Thông tin chưa khớp: lệnh được tạm giữ, bộ phận hỗ trợ báo lỗi và hướng xử lý cho bạn.</p></li>
+      <li><h3>Nhận tiền về ngân hàng</h3><p>Ngân hàng chuyển tiền về tài khoản của bạn. Màn hình báo <b>Rút tiền thành công</b>.</p></li>
+    </ol>
+    <figure class="shot tall phone" style="margin:0"><button data-full="img/rut-tien-app.jpg" data-cap="Rút tiền trên app Wikex"><img src="img/rut-tien-app.jpg" alt="Màn hình rút tiền trên app Wikex" loading="lazy"><span>Phóng to</span></button></figure>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="stage" id="cqg">
+  <div class="stage-head"><div class="num">03</div><div><h2>Kích hoạt tài khoản CQG</h2><p>CQG là phần mềm đặt lệnh trên các sở giao dịch quốc tế, được hơn 60% nhà đầu tư cá nhân và tổ chức toàn cầu sử dụng.</p></div></div>
+  <ol class="steps">
+    <li><h3>Nhận email CQG và đặt mật khẩu</h3><p>Sau khi nạp ký quỹ vào tiểu khoản Future, tài khoản CQG được gửi về email. Bấm đường link trong email để đặt mật khẩu cho tên đăng nhập CQG.</p>
+      <figure class="shot"><button data-full="img/cqg-2.jpg" data-cap="Email CQG và liên hệ CSKH"><img src="img/cqg-2.jpg" alt="Email kích hoạt CQG" loading="lazy"><span>Phóng to</span></button></figure>
+      <figcaption>Nửa dưới ảnh: cách liên hệ CSKH qua Zalo từ trang wikex.vn nếu chưa nhận được email.</figcaption></li>
+  </ol>
+  <div class="note warn"><strong>Lưu ý khi dùng CQG</strong>
+    <ul>
+      <li>Kích hoạt trong giờ làm việc 09:00–17:00, thứ 2 đến thứ 6.</li>
+      <li>CQG có hiệu lực từ ngày kích hoạt đến hết tháng. Sang tháng mới cần gia hạn.</li>
+      <li>Lần đăng nhập đầu và định kỳ hằng tháng, CQG yêu cầu đổi mật khẩu.</li>
+      <li>Mỗi tài khoản CQG chỉ đăng nhập được trên một thiết bị tại một thời điểm.</li>
+      <li>Chưa nhận được email CQG? Liên hệ CSKH qua Zalo hoặc email ở cuối trang.</li>
+    </ul>
+  </div>
+
+  <h3 class="sub">Đăng ký thêm gói dữ liệu CQG</h3>
+  <ol class="steps">
+    <li><h3>Xem biểu phí và liên hệ môi giới hoặc CSKH</h3><p>Được tư vấn gói dữ liệu phù hợp và xác nhận tổng phí.</p>
+      <figure class="shot"><button data-full="img/cqg-4.jpg" data-cap="Biểu phí dữ liệu CQG"><img src="img/cqg-4.jpg" alt="Biểu phí dữ liệu CQG" loading="lazy"><span>Phóng to</span></button></figure></li>
+    <li><h3>Chuyển khoản phí</h3><p>Chuyển khoản riêng theo thông tin dưới đây. Phí này không tự trừ vào số dư ký quỹ.</p></li>
+    <li><h3>CSKH xác nhận và kích hoạt gói</h3><p>Gói dữ liệu được mở sau khi Wikex nhận được tiền.</p></li>
+  </ol>
+
+  <div class="pay">
+    <div class="qr"><img src="img/qr-msb.jpg" alt="Mã QR chuyển khoản MSB, số tài khoản 29266888" loading="lazy"></div>
+    <div class="bank">
+      <dl>
+        <dt>Tên tài khoản</dt><dd><span>CÔNG TY CỔ PHẦN GIAO DỊCH HÀNG HÓA WIKEX</span></dd>
+        <dt>Số tài khoản</dt><dd><span class="mono">29266888</span><button class="copy" data-copy="29266888">Sao chép</button></dd>
+        <dt>Ngân hàng</dt><dd><span>MSB – NH TMCP Hàng Hải Việt Nam, CN Sở Giao Dịch</span></dd>
+      </dl>
+      <div class="builder">
+        <div class="row">
+          <div><label for="hoten">Họ và tên</label><input id="hoten" value="Nguyen Van A" autocomplete="off"></div>
+          <div><label for="matk">Mã TKGD</label><input id="matk" value="090C1234567" autocomplete="off"></div>
+        </div>
+        <div class="out"><code id="nd">nguyen van a 090C1234567 phi cqg</code><button class="copy" id="copy-nd">Sao chép nội dung</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="stage" id="giao-dich">
+  <div class="stage-head"><div class="num">04</div><div><h2>Bắt đầu giao dịch</h2><p>Sản phẩm Nano đặt lệnh ngay trên app Wikex. Các sản phẩm khác đặt lệnh trên CQG.</p></div></div>
+  <ol class="steps">
+    <li><h3>Đặt lệnh sản phẩm Nano trên app hoặc website Wikex</h3><p>Chọn hợp đồng, khối lượng, loại lệnh và hiệu lực lệnh, có thể đặt kèm chốt lời/cắt lỗ. Xác nhận bằng mã PIN.</p>
+      <figure class="shot"><button data-full="img/app-8.jpg" data-cap="Giao diện app Wikex"><img src="img/app-8.jpg" alt="Giao diện app Wikex sau khi đăng nhập" loading="lazy"><span>Phóng to</span></button></figure></li>
+    <li><h3>Đăng nhập CQG cho các sản phẩm khác</h3><p>Trên website <a href="https://m.cqg.com/" target="_blank" rel="noopener">m.cqg.com</a>, hoặc tải app CQG trên Android / iOS.</p>
+      <figure class="shot"><button data-full="img/cqg-3.jpg" data-cap="Đăng nhập CQG"><img src="img/cqg-3.jpg" alt="Giao diện đăng nhập CQG" loading="lazy"><span>Phóng to</span></button></figure></li>
+  </ol>
+  <div class="note">Tài khoản CQG demo (dùng thử 7–10 ngày): trên Android đăng nhập ở app <b>CQG Demo</b> riêng; trên iOS chuyển chế độ Demo/Live trong cùng app. Mỗi email chỉ tạo được một tài khoản demo.</div>
+</section>
+</div>
+
+<!-- Kiến thức -->
+<section class="sec" id="kien-thuc">
+  <div class="eyebrow">Kiến thức & sản phẩm</div>
+  <h2 style="margin-top:6px">Hiểu thị trường trước khi giao dịch</h2>
+  <p class="lead">Hợp đồng phái sinh hàng hóa là hợp đồng tài chính dựa trên giá của một mặt hàng. Nhà đầu tư kiếm lời từ biến động giá mà không cần mua bán hàng hóa thật.</p>
+
+  <div class="traits">
+    <div><b>Hai chiều</b><span>Mua khi kỳ vọng tăng, bán trước khi kỳ vọng giảm</span></div>
+    <div><b>T+0</b><span>Mở và đóng vị thế ngay trong ngày</span></div>
+    <div><b>Gần 24 giờ, 5 ngày</b><span>Theo giờ các sở giao dịch quốc tế</span></div>
+    <div><b>Đòn bẩy</b><span>Chỉ cần ký quỹ một phần giá trị hợp đồng</span></div>
+    <div><b>Thanh khoản toàn cầu</b><span>Liên thông CME, ICE, SGX, OSE, BMDX qua MXV</span></div>
+    <div><b>Pháp lý minh bạch</b><span>Quản lý bởi Sở Giao dịch Hàng hóa Việt Nam</span></div>
+  </div>
+
+  <div class="note warn" style="margin-top:20px"><strong>Đòn bẩy làm lãi và lỗ cùng lớn lên.</strong> Một biến động giá nhỏ có thể gây lỗ đáng kể so với số tiền ký quỹ. Luôn đặt cắt lỗ và chỉ dùng vốn bạn chấp nhận rủi ro được.</div>
+
+  <h3 class="sub" id="tra-cuu">Tra cứu hàng hóa</h3>
+  <p class="lead">35 hợp đồng thường giao dịch. Ký quỹ và phí lấy theo bảng cập nhật ngày 28/10/2026; giờ giao dịch là giờ mùa đông (GMT+7, đầu tháng 11 đến cuối tháng 3).</p>
+  <div class="filters" role="group" aria-label="Lọc theo nhóm">
+    <button data-g="" aria-pressed="true">Tất cả</button><button data-g="Nông sản" aria-pressed="false">Nông sản</button><button data-g="Kim loại" aria-pressed="false">Kim loại</button><button data-g="NLCN" aria-pressed="false">Nguyên liệu CN</button><button data-g="ACM" aria-pressed="false">Giao dịch trên app (Nano)</button>
+    <input id="q" type="search" placeholder="Tìm tên hoặc mã" aria-label="Tìm hàng hóa">
+  </div>
+  <div class="tablewrap"><table class="prod" id="prod">
+    <thead><tr><th>Hàng hóa</th><th>Sở</th><th class="r">Ký quỹ (VNĐ)</th><th class="r">Phí/HĐ</th><th>Khối lượng/HĐ</th><th class="r">1 giá =</th><th>Giờ giao dịch</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="tabmeta">"1 giá" là mức lãi/lỗ của 1 hợp đồng khi giá thay đổi 1 đơn vị yết giá (1 cent hoặc 1 USD...). Số liệu chỉ để tham khảo, mức ký quỹ thực tế theo thông báo của MXV tại thời điểm giao dịch.</p>
+
+  <h3 class="sub">Ước tính lãi/lỗ</h3>
+  <div class="calc">
+    <div class="calc-in">
+      <div><label for="c-p">Hàng hóa</label><select id="c-p"></select></div>
+      <div class="calc-row">
+        <div><label for="c-side">Chiều</label><select id="c-side"><option value="1">Mua</option><option value="-1">Bán</option></select></div>
+        <div><label for="c-n">Số hợp đồng</label><input id="c-n" type="number" min="1" step="1" value="1" inputmode="numeric"></div>
+      </div>
+      <div class="calc-row">
+        <div><label for="c-a">Giá vào</label><input id="c-a" type="number" step="any" value="950" inputmode="decimal"></div>
+        <div><label for="c-b">Giá ra</label><input id="c-b" type="number" step="any" value="960" inputmode="decimal"></div>
+      </div>
+    </div>
+    <div class="calc-out" aria-live="polite">
+      <small>Lãi/lỗ ước tính</small>
+      <div class="pnl mono" id="c-vnd">—</div>
+      <div class="mono" id="c-usd" style="color:var(--muted)"></div>
+      <dl id="c-meta"></dl>
+      <p class="tabmeta" style="margin-top:8px">Chưa trừ phí giao dịch. Tỷ giá tham chiếu: 1 USD = 25.820đ, 1 JPY = 166đ, 1 MYR = 6.242đ.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Đọc mã hợp đồng</h3>
+  <div class="code-demo"><span class="mono">ZCE</span><span class="mono">H</span><span class="mono">25</span></div>
+  <p class="lead">Mã hàng hóa + ký hiệu tháng đáo hạn + 2 số cuối của năm. Ví dụ <b class="mono">ZCEH25</b> là hợp đồng Ngô tháng 03/2025.</p>
+  <div class="tablewrap"><table class="months"><tr><th>Tháng</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+    <tr><th>Ký hiệu</th><td>F</td><td>G</td><td>H</td><td>J</td><td>K</td><td>M</td><td>N</td><td>Q</td><td>U</td><td>V</td><td>X</td><td>Z</td></tr></table></div>
+  <p class="tabmeta">Giá Ngô, Đậu tương, Lúa mì trên CQG hiển thị phần lẻ theo 1/8: <span class="mono">450'6</span> nghĩa là 450 + 6/8 = <span class="mono">450.75</span>.</p>
+
+  <h3 class="sub">Các loại lệnh</h3>
+  <div class="orders">
+    <article><span class="mono">MKT</span><h4>Lệnh thị trường</h4><p>Khớp ngay ở giá tốt nhất đang chào. Mua khớp giá chờ bán tốt nhất, bán khớp giá chờ mua tốt nhất.</p></article>
+    <article><span class="mono">LMT</span><h4>Lệnh giới hạn</h4><p>Khớp ở giá bạn đặt hoặc tốt hơn. Dùng khi chờ mua thấp hơn hoặc bán cao hơn giá hiện tại, và để chốt lời.</p></article>
+    <article><span class="mono">STP</span><h4>Lệnh dừng</h4><p>Khi giá chạm mức dừng, lệnh thành lệnh thị trường. Dùng để cắt lỗ hoặc vào lệnh theo xu hướng.</p></article>
+  </div>
+  <div class="tablewrap"><table class="tp">
+    <thead><tr><th>Vị thế</th><th>Chốt lời tự động</th><th>Cắt lỗ tự động</th></tr></thead>
+    <tbody>
+      <tr><td>Mua ở 1000</td><td>Sell LMT ở 1100</td><td>Sell STP ở 950</td></tr>
+      <tr><td>Bán ở 1000</td><td>Buy LMT ở 950</td><td>Buy STP ở 1100</td></tr>
+    </tbody></table></div>
+  <p class="tabmeta">Lệnh nâng cao trên CQG: OCO (một lệnh khớp thì lệnh kia tự hủy), Parked (lệnh treo), Trailing Stop (lệnh dừng trượt theo giá).</p>
+
+  <h3 class="sub">Hiệu lực lệnh</h3>
+  <dl class="tif">
+    <div><dt class="mono">DAY</dt><dd>Chỉ có hiệu lực trong phiên đặt lệnh</dd></div>
+    <div><dt class="mono">GTC</dt><dd>Có hiệu lực đến khi khớp hết hoặc bạn hủy</dd></div>
+    <div><dt class="mono">GTD</dt><dd>Có hiệu lực đến hết ngày được chỉ định</dd></div>
+    <div><dt class="mono">GTT</dt><dd>Có hiệu lực đến thời điểm chỉ định; chưa khớp hết thì thành lệnh treo</dd></div>
+    <div><dt class="mono">FAK</dt><dd>Khớp ngay phần có thể, phần còn lại tự hủy</dd></div>
+    <div><dt class="mono">FOK</dt><dd>Không khớp hết ngay thì hủy toàn bộ</dd></div>
+  </dl>
+</section>
+
+<!-- Quản trị rủi ro -->
+<section class="sec" id="rui-ro">
+  <div class="eyebrow">Quản trị rủi ro</div>
+  <h2 style="margin-top:6px">Tài khoản của bạn được giám sát liên tục</h2>
+  <p class="lead">Wikex theo dõi tỷ lệ ký quỹ của toàn bộ khách hàng trong suốt phiên. Khi tỷ lệ giảm, bạn được cảnh báo theo từng cấp trước khi hệ thống phải xử lý vị thế.</p>
+  <ol class="ladder">
+    <li style="--lv:var(--brand)"><b>An toàn</b><span>Đủ ký quỹ. Hệ thống kiểm tra liên tục trong phiên.</span></li>
+    <li style="--lv:var(--grain)"><b>Cảnh báo lần 1</b><span>Ký quỹ dưới mức yêu cầu. Thông báo ngay qua email và số điện thoại để bạn chuẩn bị điều chỉnh vị thế.</span></li>
+    <li style="--lv:#d07a2c"><b>Cảnh báo lần 2</b><span>Môi giới liên hệ trực tiếp, đề nghị nộp thêm ký quỹ hoặc giảm vị thế. Các lệnh đang chờ có thể bị hủy.</span></li>
+    <li style="--lv:var(--warn)"><b>Xử lý bắt buộc</b><span>Ký quỹ giảm sâu: hệ thống tự động cắt giảm vị thế theo quy định để bảo vệ phần vốn còn lại.</span></li>
+  </ol>
+  <h3 class="sub">Lịch trực rủi ro 24/7</h3>
+  <div class="shifts">
+    <div><span class="mono">05:00 – 13:00</span><b>Ca sáng</b><span>Thị trường châu Á, báo cáo đầu ngày</span></div>
+    <div><span class="mono">13:00 – 21:00</span><b>Ca chiều</b><span>Thị trường châu Âu và Mỹ, 2 nhân sự giờ cao điểm</span></div>
+    <div><span class="mono">21:00 – 05:00</span><b>Ca đêm</b><span>Thị trường Mỹ và kim loại phiên khuya</span></div>
+  </div>
+</section>
+
+<!-- Khiếu nại -->
+<section class="sec" id="khieu-nai">
+  <div class="eyebrow">Khiếu nại</div>
+  <h2 style="margin-top:6px">Quy trình tiếp nhận và giải quyết khiếu nại</h2>
+  <ol class="steps">
+    <li><h3>Liên hệ hỗ trợ ngay khi có sự cố</h3><p>Qua hotline, email hoặc Zalo. Phần lớn vướng mắc được giải đáp, xử lý ngay ở bước này.</p></li>
+    <li><h3>Gửi khiếu nại bằng văn bản trong vòng 24 giờ</h3><p>Nếu chưa được giải quyết, gửi văn bản kèm tài liệu chứng minh. <b>Khiếu nại cần gửi trong 24 giờ kể từ khi xảy ra sự cố</b>; quá thời hạn, MXV không xem xét.</p></li>
+    <li><h3>Wikex chuyển hồ sơ lên MXV</h3><p>Wikex tập hợp thông tin, thiệt hại và gửi Khối Quản lý Thành viên của MXV. MXV xem xét theo thủ tục quy định và phản hồi kết quả.</p></li>
+    <li><h3>Chưa đồng ý với kết quả</h3><p>Bạn có quyền đưa vụ việc đến cấp có thẩm quyền cao hơn.</p></li>
+  </ol>
+</section>
+
+<!-- Hội thảo -->
+<section class="sec" id="hoi-thao">
+  <div class="eyebrow">Hội thảo & đào tạo</div>
+  <h2 style="margin-top:6px">Khoảng 3 chương trình mỗi tháng, offline và online</h2>
+  <p class="lead">Hội thảo, webinar và workshop miễn phí về thị trường hàng hóa, mặt hàng tiêu điểm của quý và cách quản trị rủi ro.</p>
+  <div class="cities"><span>Hà Nội</span><span>Đà Nẵng</span><span>TP. Hồ Chí Minh</span><span>Cần Thơ</span><span>Online toàn quốc</span></div>
+  <ul class="topics">
+    <li>Giới thiệu thị trường giao dịch hàng hóa</li>
+    <li>Tổng quan về MXV và Wikex</li>
+    <li>Mặt hàng tiêu điểm của quý</li>
+    <li>Quản trị rủi ro và chiến lược giao dịch bền vững</li>
+    <li>Giao dịch hàng hóa trong kỷ nguyên số: công nghệ, dữ liệu, tư duy</li>
+  </ul>
+  <p class="lead">Đăng ký tham dự: gọi hotline hoặc nhắn Zalo Wikex (thông tin ở cuối trang).</p>
+</section>
+
+<!-- Môi giới -->
+<section class="sec" id="moi-gioi">
+  <div class="stage-head"><div class="num" style="color:var(--brand)">+</div><div><h2>Bạn muốn trở thành môi giới?</h2><p>Đăng ký ID môi giới để giới thiệu khách hàng bằng mã riêng.</p></div></div>
+  <ol class="steps">
+    <li><h3>Mở form và điền thông tin</h3><p>Email, họ tên, số CCCD, ngày cấp, nơi cấp, địa chỉ, số điện thoại, ảnh CCCD hai mặt và mã người giới thiệu. Điền đủ và chính xác.</p>
+      <figure class="shot tall"><button data-full="img/form-moigioi.jpg" data-cap="Form đăng ký ID môi giới"><img src="img/form-moigioi.jpg" alt="Form đăng ký ID môi giới" loading="lazy"><span>Phóng to</span></button></figure></li>
+    <li><h3>Bấm Submit</h3><p>Gửi thông tin đăng ký.</p></li>
+    <li><h3>Nhận thông tin qua email</h3><p>Phòng CSKH khởi tạo ID và gửi mã môi giới, tên đăng nhập, mật khẩu và mã PIN.</p></li>
+  </ol>
+  <a class="cta" href="https://forms.gle/ZDmvCQVXQCx8H2uA9" target="_blank" rel="noopener">Mở form đăng ký ID môi giới →</a>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="hoi-dap">
+  <h2>Câu hỏi thường gặp</h2>
+  <details><summary>Ảnh CCCD bị từ chối?</summary><p>Chụp lại theo chiều ngang, đủ sáng, không lóa, không cắt góc và không dùng ứng dụng AI để chỉnh sửa.</p></details>
+  <details><summary>Tài khoản ngân hàng của người thân có dùng được không?</summary><p>Không. Tài khoản ngân hàng phải chính chủ, trùng tên với tài khoản giao dịch.</p></details>
+  <details><summary>Không nhận được OTP hoặc email?</summary><p>Kiểm tra hộp thư Spam/Quảng cáo. Nếu vẫn không có, liên hệ CSKH kèm số điện thoại và email đã đăng ký.</p></details>
+  <details><summary>Nạp dưới 5 triệu thì sao?</summary><p>Bạn vẫn dùng được CQG nhưng phải tự trả phí User CQG và gói dữ liệu, chuyển khoản riêng theo cú pháp ở chặng 03.</p></details>
+  <details><summary>Nạp tiền ngoài giờ hành chính?</summary><p>Tài khoản CQG được kích hoạt trong khung 09:00–17:00, thứ 2 đến thứ 6, nên sẽ xử lý vào ngày làm việc tiếp theo.</p></details>
+</section>
+
+<footer id="ho-tro">
+  <h2 style="font-size:24px">Hỗ trợ khách hàng</h2>
+  <div class="contacts">
+    <div><small>Hotline</small><b class="mono">082 396 8319</b></div>
+    <div><small>CSKH tài khoản & CQG</small><b>quantritaikhoan@wikex.vn</b></div>
+    <div><small>Phòng đào tạo</small><b>daotao@wikex.vn</b></div>
+    <div><small>Hóa đơn, kế toán</small><b>hoadon@wikex.vn</b></div>
+    <div><small>Email chung</small><b>admin@wikex.vn</b></div>
+    <div><small>Website</small><b><a href="https://wikex.vn/" target="_blank" rel="noopener">wikex.vn</a></b></div>
+  </div>
+  <div class="note" style="margin-top:20px"><strong>Nhắn Zalo CSKH:</strong> vào <a href="https://wikex.vn/" target="_blank" rel="noopener">wikex.vn</a>, bấm biểu tượng Zalo ở góc màn hình, chọn <b>Nhắn tin</b> hoặc quét mã QR, bấm <b>Quan tâm</b>, rồi chọn <b>Tôi cần tư vấn</b> để gặp nhân viên trực.</div>
+  <p class="fine">Công ty Cổ phần Giao dịch Hàng hóa Wikex · MSDN 0319672126 · Thành viên Kinh doanh MXV mã 090-KD · 36 Mạc Đỉnh Chi, Phường Tân Định, TP. Hồ Chí Minh.<br>Giao dịch hàng hóa phái sinh có rủi ro cao do sử dụng đòn bẩy. Thông tin trên trang chỉ nhằm mục đích hướng dẫn, không phải khuyến nghị đầu tư.</p>
+</footer>
+</div>
+
+<div id="lb" hidden role="dialog" aria-modal="true" aria-label="Ảnh phóng to">
+  <div class="bar"><span id="lb-cap"></span><span style="display:flex;gap:6px"><button id="lb-zoom">Phóng to hơn</button><button id="lb-close">Đóng</button></span></div>
+  <div class="view"><img id="lb-img" alt=""></div>
+</div>
+
+<script>
+(function(){
+  var tabs=[["tab-app","p-app"],["tab-web","p-web"]];
+  tabs.forEach(function(t){
+    document.getElementById(t[0]).addEventListener("click",function(){
+      tabs.forEach(function(o){var on=o[0]===t[0];document.getElementById(o[0]).setAttribute("aria-selected",on);document.getElementById(o[1]).hidden=!on;});
+    });
+  });
+  function copy(text,btn){
+    var label=btn.textContent;
+    function done(ok){btn.textContent=ok?"Đã sao chép":"Hãy bôi đen để chép";setTimeout(function(){btn.textContent=label},1600)}
+    try{navigator.clipboard.writeText(text).then(function(){done(true)},function(){done(false)})}catch(e){done(false)}
+  }
+  document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){copy(b.dataset.copy,b)})});
+  var ht=document.getElementById("hoten"),mk=document.getElementById("matk"),nd=document.getElementById("nd");
+  function strip(s){return s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D")}
+  function upd(){nd.textContent=(strip(ht.value.trim()).toLowerCase()+" "+mk.value.trim().toUpperCase()+" phi cqg").replace(/\s+/g," ").trim()}
+  ht.addEventListener("input",upd);mk.addEventListener("input",upd);upd();
+  document.getElementById("copy-nd").addEventListener("click",function(){copy(nd.textContent,this)});
+
+  // Lightbox
+  var lb=document.getElementById("lb"),li=document.getElementById("lb-img"),lc=document.getElementById("lb-cap"),lz=document.getElementById("lb-zoom"),last=null;
+  function open(src,cap,btn){last=btn;li.src=src;li.alt=cap;lc.textContent=cap;lb.classList.remove("zoom");lz.textContent="Phóng to hơn";lb.hidden=false;document.body.style.overflow="hidden";document.getElementById("lb-close").focus()}
+  function close(){lb.hidden=true;document.body.style.overflow="";if(last)last.focus()}
+  function toggle(){var z=lb.classList.toggle("zoom");lz.textContent=z?"Vừa màn hình":"Phóng to hơn"}
+  document.querySelectorAll("[data-full]").forEach(function(b){b.addEventListener("click",function(){open(b.dataset.full,b.dataset.cap||"",b)})});
+  document.getElementById("lb-close").addEventListener("click",close);
+  lz.addEventListener("click",toggle);li.addEventListener("click",toggle);
+  lb.querySelector(".view").addEventListener("click",function(e){if(e.target===this)close()});
+  addEventListener("keydown",function(e){if(e.key==="Escape"&&!lb.hidden)close()});
+
+  // ===== Bảng hàng hóa (cập nhật 28/10/2026) =====
+  var G1="08:00–20:45 · 21:30–02:20", M1="06:00–05:00 hôm sau";
+  // [tên, mã, nhóm, sở, ký quỹ VNĐ|null, phí/HĐ, khối lượng, đơn vị yết, 1 giá (nguyên tệ), nguyên tệ, giờ|null, nano]
+  var P=[
+   ["Ngô","ZCE","Nông sản","CBOT",38760984,700000,"5.000 bushel","cent/bushel",50,"USD",G1],
+   ["Ngô mini","XC","Nông sản","CBOT",7746000,600000,"1.000 bushel","cent/bushel",10,"USD",G1],
+   ["Ngô micro","MZC","Nông sản","CBOT",3873000,300000,"500 bushel","cent/bushel",5,"USD",G1],
+   ["Lúa mì Kansas","KWE","Nông sản","CBOT",68164800,700000,"5.000 bushel","cent/bushel",50,"USD",G1],
+   ["Lúa mì","ZWA","Nông sản","CBOT",69868920,700000,"5.000 bushel","cent/bushel",50,"USD",G1],
+   ["Lúa mì mini","XW","Nông sản","CBOT",13973784,600000,"1.000 bushel","cent/bushel",10,"USD",G1],
+   ["Lúa mì micro","MZW","Nông sản","CBOT",7002384,300000,"500 bushel","cent/bushel",5,"USD",G1],
+   ["Đậu tương","ZSE","Nông sản","CBOT",87684720,700000,"5.000 bushel","cent/bushel",50,"USD",G1],
+   ["Đậu tương mini","XB","Nông sản","CBOT",17536944,600000,"1.000 bushel","cent/bushel",10,"USD",G1],
+   ["Đậu tương micro","MZS","Nông sản","CBOT",9512088,300000,"500 bushel","cent/bushel",5,"USD",G1],
+   ["Dầu đậu tương","ZLE","Nông sản","CBOT",71573040,700000,"60.000 pound","cent/pound",600,"USD",G1],
+   ["Dầu đậu tương micro","MZL","Nông sản","CBOT",7157304,300000,"6.000 pound","cent/pound",60,"USD",G1],
+   ["Khô đậu tương","ZME","Nông sản","CBOT",52827720,700000,"100 short ton","USD/short ton",100,"USD",G1],
+   ["Khô đậu tương micro","MZM","Nông sản","CBOT",5298264,300000,"10 short ton","USD/short ton",10,"USD",G1],
+   ["Bạc","SIE","Kim loại","COMEX",757310928,700000,"5.000 troy oz","USD/troy oz",5000,"USD",M1],
+   ["Bạc mini","MQI","Kim loại","COMEX",380886312,600000,"2.500 troy oz","USD/troy oz",2500,"USD",M1],
+   ["Bạc micro","SIL","Kim loại","COMEX",151449792,300000,"1.000 troy oz","USD/troy oz",1000,"USD",M1],
+   ["Bạc Nano","SI5CO","Kim loại","ACM",9295200,100000,"100 troy oz","USD/troy oz",100,"USD",M1,1],
+   ["Đồng","CPE","Kim loại","COMEX",340824000,700000,"25.000 pound","USD/pound",25000,"USD",M1],
+   ["Đồng mini","MQC","Kim loại","COMEX",170412000,600000,"12.500 pound","USD/pound",12500,"USD",M1],
+   ["Đồng micro","MHG","Kim loại","COMEX",34082400,300000,"2.500 pound","USD/pound",2500,"USD",M1],
+   ["Đồng Nano","CP2CO","Kim loại","ACM",9512088,100000,"1.000 pound","USD/pound",1000,"USD",M1,1],
+   ["Bạch kim","PLE","Kim loại","NYMEX",209482824,700000,"50 troy oz","USD/troy oz",50,"USD",M1],
+   ["Bạch kim Nano","PL1NY","Kim loại","ACM",16173648,100000,"5 troy oz","USD/troy oz",5,"USD",M1,1],
+   ["Nhôm","ALI","Kim loại","COMEX",170412000,700000,"25 tấn","USD/tấn",25,"USD",M1],
+   ["Quặng sắt","FEF","Kim loại","SGX",32037456,700000,"100 tấn","USD/tấn",100,"USD","07:10–20:00 · 20:15–05:15"],
+   ["Cà phê Robusta","LRC","NLCN","ICE EU",116561808,700000,"10 tấn","USD/tấn",10,"USD",null],
+   ["Cà phê Arabica","KCE","NLCN","ICE US",null,700000,"37.500 pound","cent/pound",375,"USD",null],
+   ["Đường trắng","QW","NLCN","ICE EU",63641136,700000,"50 tấn","USD/tấn",50,"USD","15:45–01:00"],
+   ["Đường 11","SBE","NLCN","ICE US",41611512,700000,"112.000 pound","cent/pound",1120,"USD","15:30–01:00"],
+   ["Bông sợi","CTE","NLCN","ICE US",72595512,700000,"50.000 pound","cent/pound",500,"USD","09:00–02:20"],
+   ["Ca cao","CCE","NLCN","ICE US",288677928,700000,"10 tấn","USD/tấn",10,"USD","16:45–01:30"],
+   ["Cao su RSS3","TRU","NLCN","OSE",25597200,700000,"5.000 kg","JPY/kg",5000,"JPY","08:00–14:15 · 15:30–18:00"],
+   ["Cao su TSR20","ZFT","NLCN","SGX",39194760,700000,"5 tấn","cent/kg",50,"USD","07:55–18:00"],
+   ["Dầu cọ thô","MPO","NLCN","BMDX",59923200,700000,"25 tấn","MYR/tấn",25,"MYR","10:30–12:30 · 14:30–18:00"]
+  ];
+  var FX={USD:25820,JPY:166,MYR:6242};
+  var vnd=function(n){return Math.round(n).toLocaleString("vi-VN")};
+  var num=function(n){return n.toLocaleString("vi-VN",{maximumFractionDigits:2})};
+  var unitOf=function(p){return p[7].split("/")[0]};
+  var tb=document.querySelector("#prod tbody"),grp="",qq=document.getElementById("q");
+  function render(){
+    var term=(qq.value||"").trim().toLowerCase(),h="";
+    P.forEach(function(p,i){
+      if(grp==="ACM"?!p[11]:(grp&&p[2]!==grp))return;
+      if(term&&(p[0]+" "+p[1]).toLowerCase().indexOf(term)<0)return;
+      h+='<tr data-i="'+i+'"'+(p[11]?' class="nano"':'')+'><td><b>'+p[0]+'</b><small>'+p[1]+'</small></td><td>'+p[3]+'</td>'+
+        '<td class="r">'+(p[4]?vnd(p[4]):'<span class="na">Đang cập nhật</span>')+'</td><td class="r">'+vnd(p[5])+'</td>'+
+        '<td>'+p[6]+'</td><td class="r">'+num(p[8])+' '+p[9]+'<small>/ 1 '+unitOf(p)+'</small></td>'+
+        '<td>'+(p[10]||'<span class="na">Đang cập nhật</span>')+'</td></tr>';
+    });
+    tb.innerHTML=h||'<tr><td colspan="7" class="na">Không tìm thấy hàng hóa phù hợp.</td></tr>';
+  }
+  document.querySelectorAll(".filters button").forEach(function(b){b.addEventListener("click",function(){
+    grp=b.dataset.g;document.querySelectorAll(".filters button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});render();})});
+  qq.addEventListener("input",render);render();
+
+  // ===== Máy tính lãi/lỗ =====
+  var sel=document.getElementById("c-p");
+  sel.innerHTML=P.map(function(p,i){return '<option value="'+i+'">'+p[0]+' ('+p[1]+')'+(p[11]?' · trên app':'')+'</option>'}).join("");
+  sel.value="23";
+  function calc(){
+    var p=P[+sel.value],n=Math.max(0,+document.getElementById("c-n").value||0),s=+document.getElementById("c-side").value,
+        a=+document.getElementById("c-a").value,b=+document.getElementById("c-b").value;
+    var out=document.getElementById("c-vnd"),usd=document.getElementById("c-usd"),meta=document.getElementById("c-meta");
+    if(!isFinite(a)||!isFinite(b)||!n){out.textContent="—";usd.textContent="";meta.innerHTML="";out.className="pnl mono";return}
+    var nat=(b-a)*s*p[8]*n,v=nat*FX[p[9]];
+    out.textContent=(v>0?"+":"")+vnd(v)+" đ";out.className="pnl mono "+(v>0?"up":v<0?"down":"");
+    usd.textContent=(nat>0?"+":"")+num(nat)+" "+p[9];
+    var m=p[4]?p[4]*n:null;
+    meta.innerHTML='<dt>Biến động giá</dt><dd>'+num(b-a)+' '+unitOf(p)+'</dd>'+
+      '<dt>Ký quỹ cần có</dt><dd>'+(m?vnd(m)+' đ':'Đang cập nhật')+'</dd>'+
+      (m?'<dt>So với ký quỹ</dt><dd>'+(v>0?"+":"")+num(v/m*100)+'%</dd>':'')+
+      '<dt>Phí giao dịch</dt><dd>'+vnd(p[5]*n)+' đ</dd>';
+  }
+  ["c-p","c-n","c-side","c-a","c-b"].forEach(function(id){document.getElementById(id).addEventListener("input",calc)});
+  tb.addEventListener("click",function(e){var tr=e.target.closest("tr[data-i]");if(!tr)return;sel.value=tr.dataset.i;calc();document.querySelector(".calc").scrollIntoView({behavior:"smooth",block:"center"})});
+  calc();
+
+  var links=document.querySelectorAll(".journey a"),ids=["mo-tai-khoan","nap-ky-quy","cqg","giao-dich"];
+  function spy(){var cur=ids[0];ids.forEach(function(id){if(document.getElementById(id).getBoundingClientRect().top<160)cur=id});
+    links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+cur)})}
+  addEventListener("scroll",spy,{passive:true});spy();
+})();
+</script>
+
+</body></html>
