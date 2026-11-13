@@ -3,262 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wikex — Giao dịch Hàng hóa Phái sinh qua MXV</title>
-<meta name="description" content="Wikex - Thành viên Kinh doanh MXV (098-KD). Giao dịch hàng hóa phái sinh minh bạch: nông sản, kim loại, năng lượng. 136 Hồ Tùng Mậu, Hà Nội - 0823 968 319.">
-<meta property="og:type" content="website">
+<title>Wikex — Trang chủ</title>
+<meta name="description" content="Wikex - Thành viên Kinh doanh MXV. Chọn trang: Giới thiệu Wikex hoặc Hướng dẫn mở tài khoản.">
 <meta property="og:title" content="Wikex — Giao dịch Hàng hóa Phái sinh qua MXV">
-<meta property="og:description" content="Thành viên Kinh doanh MXV (098-KD). Giao dịch hàng hóa phái sinh minh bạch. Mở tài khoản ~10 phút. Hotline 0823 968 319.">
-<meta property="og:image" content="https://wikexvn.github.io/wikex-web/og.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Wikex — Giao dịch Hàng hóa Phái sinh qua MXV">
-<meta name="twitter:description" content="Thành viên Kinh doanh MXV (098-KD). Giao dịch hàng hóa phái sinh minh bạch qua MXV.">
-<meta name="twitter:image" content="https://wikexvn.github.io/wikex-web/og.png">
-<link rel="icon" href="./og.png">
+<meta property="og:description" content="Thành viên Kinh doanh MXV. Giới thiệu Wikex & hướng dẫn mở tài khoản.">
+<meta property="og:image" content="https://wikexvn.github.io/wikex-web/gioi-thieu/og.png">
 <style>
-  :root{
-    --green:#1f7a4d; --green-d:#13563a; --green-l:#2e9b63;
-    --gold:#d4af37; --ink:#0f1b14; --paper:#f4f7f3; --muted:#5b6b60;
-    --card:#ffffff; --line:#e2e9e3;
-  }
+  :root{--green:#13563a;--green2:#1f7a4d;--gold:#d4af37;--ink:#0f1b14}
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
-  img{max-width:100%;display:block}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-  section{padding:64px 0;border-bottom:1px solid var(--line)}
-  .eyebrow{display:inline-block;background:rgba(31,122,77,.1);color:var(--green);font-weight:700;font-size:13px;letter-spacing:.5px;padding:6px 14px;border-radius:999px;margin-bottom:16px}
-  h1{font-size:clamp(30px,5vw,50px);line-height:1.1;font-weight:800;margin-bottom:18px}
-  h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:10px}
-  h2 .bar{display:block;width:60px;height:4px;background:var(--gold);border-radius:4px;margin-top:14px}
-  .lead{color:var(--muted);font-size:18px;max-width:720px}
-
-  /* NAV */
-  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
-  .logo{font-weight:800;font-size:22px;color:var(--green);letter-spacing:.5px}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;
+    background:linear-gradient(135deg,#0f1b14,#13563a 60%,#1f7a4d);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px}
+  .logo{font-weight:800;font-size:40px;letter-spacing:1px;margin-bottom:6px}
   .logo span{color:var(--gold)}
-  .navlinks{display:flex;gap:22px;flex-wrap:wrap}
-  .navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;opacity:.8}
-  .navlinks a:hover{opacity:1;color:var(--green)}
-  @media(max-width:760px){.navlinks{display:none}}
-
-  /* HERO */
-  .hero{background:linear-gradient(135deg,#0f1b14,#13563a 60%,#1f7a4d);color:#fff;border-bottom:none}
-  .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-  .hero h1{color:#fff}
-  .hero .lead{color:rgba(255,255,255,.85)}
-  .hero .eyebrow{background:rgba(255,255,255,.15);color:#eafff3}
-  .btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
-  .btn{display:inline-block;padding:14px 26px;border-radius:10px;font-weight:700;text-decoration:none;font-size:15px}
-  .btn-main{background:var(--gold);color:#1a1200}
-  .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
-  .hero figure{border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}
-  @media(max-width:860px){.hero .grid{grid-template-columns:1fr}}
-
-  /* ABOUT */
-  .about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:30px}
-  .infotable{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(16,40,26,.06)}
-  .infotable td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15px}
-  .infotable td:first-child{color:var(--muted);width:42%;font-weight:600}
-  .infotable td:last-child{font-weight:600}
-  .infotable tr:last-child td{border-bottom:none}
-  .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
-  .badge{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
-  .badge h4{color:var(--green);font-size:16px;margin-bottom:6px}
-  .badge p{font-size:14px;color:var(--muted)}
-  .aboutpic{border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(16,40,26,.1)}
-  @media(max-width:860px){.about{grid-template-columns:1fr}.badges{grid-template-columns:1fr}}
-
-  /* METHOD */
-  .method{background:#0f1b14;color:#fff}
-  .method h2{color:#fff}
-  .method .lead{color:rgba(255,255,255,.75)}
-  .chartbox{margin-top:30px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 20px 50px rgba(0,0,0,.4)}
-  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
-  .feat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px}
-  .feat .n{color:var(--gold);font-weight:800;font-size:22px}
-  .feat h4{margin:8px 0 4px;font-size:16px}
-  .feat p{font-size:14px;color:rgba(255,255,255,.7)}
-  @media(max-width:860px){.features{grid-template-columns:1fr}}
-
-  /* STATS GRID */
-  .gallery{display:grid;gap:22px;margin-top:30px}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .gallery figure{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(16,40,26,.07)}
-  @media(max-width:860px){.g3{grid-template-columns:1fr}}
-
-  /* OFFICE */
-  .office{background:#f4f7f3}
-  .g4{grid-template-columns:repeat(2,1fr)}
-  .office figure{border-radius:14px;overflow:hidden;box-shadow:0 10px 28px rgba(16,40,26,.1)}
-  .office figure img{height:260px;width:100%;object-fit:cover}
-  @media(max-width:860px){.g4{grid-template-columns:1fr}.office figure img{height:auto}}
-
-  /* CONTACT */
-  .contact{background:linear-gradient(135deg,#13563a,#1f7a4d);color:#fff;border-bottom:none}
-  .contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-  .ccard{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:28px}
-  .ccard h3{font-size:14px;letter-spacing:1px;text-transform:uppercase;opacity:.8;margin-bottom:8px}
-  .ccard .big{font-size:24px;font-weight:800}
-  .ccard a{color:#fff;text-decoration:none}
-  .ccta{display:flex;align-items:center;justify-content:center}
-  @media(max-width:860px){.contact .grid{grid-template-columns:1fr}}
-
-  footer{background:#0f1b14;color:rgba(255,255,255,.65);text-align:center;padding:26px 20px;font-size:13px}
-
-  .disclaimer{margin-top:22px;font-size:13px;color:var(--muted);font-style:italic}
-  .method .disclaimer{color:rgba(255,255,255,.55)}
+  .pill{background:rgba(255,255,255,.15);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:34px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;width:100%}
+  @media(max-width:640px){.cards{grid-template-columns:1fr}}
+  a.card{display:block;text-decoration:none;color:var(--ink);background:#fff;border-radius:18px;
+    padding:28px 24px;box-shadow:0 14px 40px rgba(0,0,0,.3);transition:transform .15s}
+  a.card:hover{transform:translateY(-4px)}
+  .card .ic{font-size:34px}
+  .card h2{font-size:21px;margin:14px 0 8px;color:var(--green)}
+  .card p{font-size:14px;color:#5b6b60;line-height:1.5}
+  .card .go{display:inline-block;margin-top:16px;background:var(--gold);color:#1a1200;
+    font-weight:700;font-size:14px;padding:10px 18px;border-radius:10px}
+  footer{margin-top:34px;font-size:12px;color:rgba(255,255,255,.7);text-align:center}
+  footer a{color:var(--gold);text-decoration:none}
 </style>
 </head>
 <body>
-
-<nav>
-  <div class="wrap">
-    <div class="logo">WI<span>KEX</span></div>
-    <div class="navlinks">
-      <a href="#gioithieu">Giới thiệu</a>
-      <a href="#vewikex">Về Wikex</a>
-      <a href="#phuongphap">Phương pháp</a>
-      <a href="#thongke">Thống kê</a>
-      <a href="#ketqua">Kết quả</a>
-      <a href="#vanphong">Văn phòng</a>
-      <a href="#lienhe">Liên hệ</a>
-    </div>
+  <div class="logo">WI<span>KEX</span></div>
+  <div class="pill">098-KD · Thành viên Kinh doanh của Sở Giao dịch Hàng hóa Việt Nam</div>
+  <div class="cards">
+    <a class="card" href="gioi-thieu/">
+      <div class="ic">🏢</div>
+      <h2>Giới thiệu Wikex</h2>
+      <p>Thông tin pháp lý, phương pháp giao dịch tín hiệu, kết quả thống kê, văn phòng đào tạo và liên hệ.</p>
+      <span class="go">Xem trang →</span>
+    </a>
+    <a class="card" href="mo-tai-khoan/">
+      <div class="ic">📱</div>
+      <h2>Hướng dẫn mở tài khoản</h2>
+      <p>Hành trình mở tài khoản từng bước: tải app, eKYC, ký hợp đồng, nạp tiền, kích hoạt CQG và bắt đầu giao dịch.</p>
+      <span class="go">Xem hướng dẫn →</span>
+    </a>
   </div>
-</nav>
-
-<!-- PHẦN 1 — ảnh 2 -->
-<section class="hero" id="gioithieu">
-  <div class="wrap">
-    <div class="grid">
-      <div>
-        <span class="eyebrow">098-KD · Thành viên Kinh doanh của Sở Giao dịch Hàng hóa Việt Nam</span>
-        <h1>Giao dịch hàng hóa phái sinh minh bạch, trên nền tảng tự phát triển</h1>
-        <p class="lead">Wikex kết nối nhà đầu tư cá nhân và doanh nghiệp với các sản phẩm nông sản, kim loại, năng lượng niêm yết qua MXV. Mở tài khoản trực tuyến trong khoảng 10 phút.</p>
-        <div class="btns">
-          <a class="btn btn-main" href="#lienhe">Mở tài khoản giao dịch</a>
-          <a class="btn btn-ghost" href="#phuongphap">Xem hướng dẫn từng bước</a>
-        </div>
-      </div>
-      <figure style="background:#fff;padding:14px"><img src="./cert.jpg" alt="Giấy chứng nhận Thành viên Kinh doanh MXV - Wikex"></figure>
-    </div>
-  </div>
-</section>
-
-<!-- PHẦN 2 — ảnh 3 -->
-<section id="vewikex">
-  <div class="wrap">
-    <span class="eyebrow">VỀ WIKEX</span>
-    <h2>Công ty Cổ phần Giao dịch Hàng hóa Wikex<span class="bar"></span></h2>
-    <p class="lead">Wikex hoạt động theo quy định của pháp luật Việt Nam, của MXV và các sở giao dịch liên thông. Thông tin pháp lý dưới đây có thể đối chiếu trên Cổng thông tin quốc gia về đăng ký doanh nghiệp và danh sách thành viên của MXV.</p>
-    <div class="about">
-      <table class="infotable">
-        <tr><td>Tên tiếng Anh</td><td>Wikex Commodity Trading JSC</td></tr>
-        <tr><td>Mã số doanh nghiệp</td><td>0319672126</td></tr>
-        <tr><td>Thành viên MXV</td><td>Thành viên Kinh doanh, mã 098-KD, chứng nhận ngày 09/10/2026</td></tr>
-        <tr><td>Vốn điều lệ</td><td>75.000.000.000 đ</td></tr>
-        <tr><td>Trụ sở</td><td>36 Mạc Đĩnh Chi, Phường Tân Định, TP. Hồ Chí Minh</td></tr>
-        <tr><td>Đại diện pháp luật</td><td>Ông Phan Duy Vũ, Giám đốc</td></tr>
-      </table>
-      <div style="display:flex;flex-direction:column;gap:18px">
-        <figure class="aboutpic"><img src="./about1.jpg" alt="Văn phòng và đội ngũ Wikex"></figure>
-        <figure class="aboutpic"><img src="./about2.jpg" alt="Hoạt động và hệ sinh thái Wikex"></figure>
-      </div>
-    </div>
-    <div class="badges">
-      <div class="badge"><h4>Đội ngũ chuẩn MXV</h4><p>Hơn 15 môi giới đã có chứng chỉ hành nghề do MXV cấp.</p></div>
-      <div class="badge"><h4>Công nghệ tự chủ</h4><p>Web, app, quản trị và quản lý rủi ro do Wikex tự phát triển, vận hành.</p></div>
-      <div class="badge"><h4>Giám sát 24/7</h4><p>Bộ phận quản trị rủi ro trực 3 ca, theo dõi thị trường Á, Âu, Mỹ.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PHẦN 3 — ảnh 1 -->
-<section class="method" id="phuongphap">
-  <div class="wrap">
-    <span class="eyebrow">PHƯƠNG PHÁP</span>
-    <h2>Phương pháp giao dịch tín hiệu tỷ lệ thắng cao<span class="bar"></span></h2>
-    <p class="lead">Hệ thống tín hiệu xác định điểm vào lệnh (Entry), cắt lỗ (SL) và chốt lời theo nhiều mốc (TP1, TP2, TP3) — bám sát biểu đồ, kỷ luật và quản trị rủi ro ở từng lệnh.</p>
-    <div class="chartbox"><img src="./img1.png" alt="Biểu đồ phương pháp giao dịch tín hiệu"></div>
-    <div class="features">
-      <div class="feat"><div class="n">Entry</div><h4>Điểm vào lệnh rõ ràng</h4><p>Xác định vùng vào lệnh Mua/Bán theo hệ thống, không vào lệnh cảm tính.</p></div>
-      <div class="feat"><div class="n">TP1–TP3</div><h4>Chốt lời nhiều mốc</h4><p>Chia mục tiêu lợi nhuận theo từng mốc để tối ưu và bảo toàn thành quả.</p></div>
-      <div class="feat"><div class="n">SL</div><h4>Quản trị rủi ro</h4><p>Luôn đặt cắt lỗ trước khi vào lệnh, bảo vệ vốn là ưu tiên hàng đầu.</p></div>
-    </div>
-    <p class="disclaimer">* Thông tin mang tính chất tham khảo, không phải khuyến nghị đầu tư. Giao dịch có kỷ luật — quản trị rủi ro trước khi vào lệnh.</p>
-  </div>
-</section>
-
-<!-- PHẦN 4 — ảnh 4,5,6 -->
-<section id="thongke">
-  <div class="wrap">
-    <span class="eyebrow">KẾT QUẢ GIAO DỊCH — THỐNG KÊ</span>
-    <h2>Cập nhật kết quả tín hiệu theo từng phiên<span class="bar"></span></h2>
-    <p class="lead">Các tín hiệu VIP được công bố và cập nhật kết quả theo các mốc TP đã thông báo.</p>
-    <div class="gallery g3">
-      <figure><img src="./img4.jpg" alt="Tín hiệu Khô đậu ZMEH27 +120$"></figure>
-      <figure><img src="./img5.jpg" alt="Tín hiệu Lúa ZWAH27 hit TP1 +200$"></figure>
-      <figure><img src="./img6.jpg" alt="Tổng kết tín hiệu ngày 10/11/2026 +650$"></figure>
-    </div>
-  </div>
-</section>
-
-<!-- PHẦN 5 — ảnh 7,8,9 -->
-<section id="ketqua">
-  <div class="wrap">
-    <span class="eyebrow">KẾT QUẢ GIAO DỊCH</span>
-    <h2>Trạng thái lãi/lỗ thực tế trên tài khoản<span class="bar"></span></h2>
-    <p class="lead">Ảnh chụp trạng thái lệnh và kết quả lãi/lỗ (USD) trực tiếp từ nền tảng giao dịch.</p>
-    <div class="gallery g3">
-      <figure><img src="./img7.jpg" alt="Trạng thái tài khoản 1"></figure>
-      <figure><img src="./img8.jpg" alt="Trạng thái tài khoản 2"></figure>
-      <figure><img src="./img9.jpg" alt="Trạng thái tài khoản 3"></figure>
-    </div>
-  </div>
-</section>
-
-<!-- PHẦN 6 — ảnh 10,11,12,13 -->
-<section class="office" id="vanphong">
-  <div class="wrap">
-    <span class="eyebrow">VĂN PHÒNG</span>
-    <h2>Không gian chia sẻ & đào tạo<span class="bar"></span></h2>
-    <p class="lead">Các buổi chia sẻ kiến thức, đào tạo và tư vấn đầu tư hàng hóa được tổ chức trực tiếp tại văn phòng Wikex.</p>
-    <div class="gallery g4">
-      <figure><img src="./img10.jpg" alt="Buổi đào tạo tại văn phòng"></figure>
-      <figure><img src="./img11.jpg" alt="Buổi chia sẻ đông người tham dự"></figure>
-      <figure><img src="./img12.jpg" alt="Buổi đào tạo nhóm"></figure>
-      <figure><img src="./img13.jpg" alt="Khám phá bí mật đầu tư hàng hóa"></figure>
-    </div>
-  </div>
-</section>
-
-<!-- PHẦN 7 & 8 — địa chỉ + SĐT -->
-<section class="contact" id="lienhe">
-  <div class="wrap">
-    <span class="eyebrow" style="background:rgba(255,255,255,.18);color:#fff">LIÊN HỆ</span>
-    <h2 style="color:#fff">Kết nối với Wikex<span class="bar"></span></h2>
-    <div class="grid" style="margin-top:28px">
-      <div class="ccard">
-        <h3>Địa chỉ công ty</h3>
-        <p class="big">136 Hồ Tùng Mậu, Hà Nội</p>
-        <p style="margin-top:14px;opacity:.85">Văn phòng chia sẻ & đào tạo đầu tư hàng hóa phái sinh.</p>
-      </div>
-      <div class="ccard">
-        <h3>Hotline / Zalo</h3>
-        <p class="big"><a href="tel:0823968319">0823 968 319</a></p>
-        <p style="margin-top:14px;opacity:.85">Gọi ngay để được tư vấn mở tài khoản và nhận tín hiệu giao dịch.</p>
-      </div>
-    </div>
-    <div class="btns" style="margin-top:28px">
-      <a class="btn btn-main" href="tel:0823968319">Gọi tư vấn ngay</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © 2026 Công ty Cổ phần Giao dịch Hàng hóa Wikex · Thành viên Kinh doanh MXV (098-KD)<br>
-  Thông tin trên trang mang tính tham khảo, không phải khuyến nghị đầu tư.
-</footer>
-
+  <footer>
+    © 2026 Công ty Cổ phần Giao dịch Hàng hóa Wikex · 136 Hồ Tùng Mậu, Hà Nội · <a href="tel:0823968319">0823 968 319</a>
+  </footer>
 </body>
 </html>
